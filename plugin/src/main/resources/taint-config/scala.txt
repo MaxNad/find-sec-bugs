@@ -1,6 +1,7 @@
 
-scala/Predef$.wrapRefArray([Ljava/lang/Object;)Lscala/collection/mutable/WrappedArray;:0#0
+scala/Predef$.wrapRefArray([Ljava/lang/Object;)Lscala/collection/mutable/WrappedArray;:0#1,1
 scala/collection/Seq$.apply(Lscala/collection/Seq;)Lscala/collection/GenTraversable;:0#0
+scala/StringContext.<init>(Lscala/collection/Seq;)V:0#1,2
 
 scala/Tuple2.<init>(Ljava/lang/Object;Ljava/lang/Object;)V:0,1#3
 

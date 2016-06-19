@@ -1,0 +1,3 @@
+anorm/package$.SQL(Ljava/lang/String;)Lanorm/SqlQuery;:0
+anorm/package$.SqlStringInterpolation(Lscala/StringContext;)Lscala/StringContext;:0
+anorm/package$SqlStringInterpolation$.SQL$extension(Lscala/StringContext;Lscala/collection/Seq;)Lanorm/SimpleSql;:0
