@@ -1,3 +1,8 @@
+- API reference:
+- https://www.playframework.com/documentation/2.5.x/ScalaAnorm
+
 anorm/package$.SQL(Ljava/lang/String;)Lanorm/SqlQuery;:0
-anorm/package$.SqlStringInterpolation(Lscala/StringContext;)Lscala/StringContext;:0
-anorm/package$SqlStringInterpolation$.SQL$extension(Lscala/StringContext;Lscala/collection/Seq;)Lanorm/SimpleSql;:0
+anorm/package$SqlStringInterpolation$.SQL$extension(Lscala/StringContext;Lscala/collection/Seq;)Lanorm/SimpleSql;:1
+
+anorm/BatchSql$.apply(Ljava/lang/String;Lscala/collection/Seq;)Lanorm/BatchSql;:1
+anorm/BatchSql$.apply(Ljava/lang/String;Lscala/collection/Seq;Lscala/collection/Seq;)Lanorm/BatchSql;:2

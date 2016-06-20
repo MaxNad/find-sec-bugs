@@ -19,21 +19,18 @@ package com.h3xstream.findsecbugs.scala;
 
 import com.h3xstream.findbugs.test.BaseDetectorTest;
 import com.h3xstream.findbugs.test.EasyBugReporter;
-import com.h3xstream.findsecbugs.FindSecBugsGlobalConfig;
 import org.testng.annotations.Test;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import static org.mockito.Mockito.*;
 
-public class ScalaSqlInjectionAnormDetectorTest extends BaseDetectorTest {
+public class ScalaSqlInjectionSlickDetectorTest extends BaseDetectorTest {
 
     /**
-     * Test the API coverage for SqlInjectionDetector (loadConfiguredSinks("sql-scala-anorm.txt", "SCALA_SQL_INJECTION_ANORM);)
+     * Test the API coverage for SqlInjectionDetector (loadConfiguredSinks("sql-scala-slick.txt", "SCALA_SQL_INJECTION_SLICK);)
      * @throws Exception
      */
     @Test
@@ -53,17 +50,8 @@ public class ScalaSqlInjectionAnormDetectorTest extends BaseDetectorTest {
 
         //Assertions for bugs
         Map<String, int[]> methodBugLines = new HashMap<String, int[]>();
-        methodBugLines.put("vulnerableAnorm1", new int[]{25});
-        methodBugLines.put("vulnerableAnorm2", new int[]{32, 33});
-        methodBugLines.put("vulnerableAnorm3", new int[]{41});
-        methodBugLines.put("vulnerableAnorm4", new int[]{48, 49});
-        methodBugLines.put("vulnerableAnorm5", new int[]{57});
-        methodBugLines.put("vulnerableAnorm6", new int[]{64, 65});
-        methodBugLines.put("vulnerableAnorm7", new int[]{73});
-        methodBugLines.put("vulnerableAnorm8", new int[]{80, 81});
-        methodBugLines.put("vulnerableAnorm9", new int[]{89});
-        methodBugLines.put("vulnerableAnorm10", new int[]{96, 97});
-        methodBugLines.put("vulnerableAnorm11", new int[]{105, 106, 107, /**/ 109, 110, 111});
+        methodBugLines.put("vulnerableSlick1", new int[]{180});
+        methodBugLines.put("vulnerableSlick2", new int[]{201});
 
         for (Entry<String, int[]> entry : methodBugLines.entrySet()) {
 
@@ -71,7 +59,7 @@ public class ScalaSqlInjectionAnormDetectorTest extends BaseDetectorTest {
             for (int line : entry.getValue()) {
                 verify(reporter).doReportBug(
                         bugDefinition()
-                                .bugType("SCALA_SQL_INJECTION_ANORM")
+                                .bugType("SCALA_SQL_INJECTION_SLICK")
                                 .inClass("SqlController").inMethod(entry.getKey()).atLine(line)
                                 .build()
                 );
@@ -81,10 +69,8 @@ public class ScalaSqlInjectionAnormDetectorTest extends BaseDetectorTest {
 
         //Assertions for safe calls and false positives
         Map<String, int[]> methodFalsePositiveLines = new HashMap<String, int[]>();
-        methodFalsePositiveLines.put("variousSafeAnormSelect", new int[]{119, 120, 121, 122, /**/ 124, 125, 126, 127});
-        methodFalsePositiveLines.put("variousSafeAnormUpdate", new int[]{135, 136, 137, 138, /**/ 140, 141, 142, 143});
-        methodFalsePositiveLines.put("variousSafeAnormInsert", new int[]{151, 152, 153, 154});
-        methodFalsePositiveLines.put("variousSafeAnormBatch", new int[]{162, 163, 164, 165, 166});
+        methodFalsePositiveLines.put("variousSafeSlick1", new int[]{190, 191});
+        methodFalsePositiveLines.put("variousSafeSlick2", new int[]{211, 212});
 
         for (Entry<String, int[]> entry : methodFalsePositiveLines.entrySet()) {
 
@@ -92,7 +78,7 @@ public class ScalaSqlInjectionAnormDetectorTest extends BaseDetectorTest {
             for (int line : entry.getValue()) {
                 verify(reporter,never()).doReportBug(
                         bugDefinition()
-                                .bugType("SCALA_SQL_INJECTION_ANORM")
+                                .bugType("SCALA_SQL_INJECTION_SLICK")
                                 .inClass("SqlController").inMethod(entry.getKey()).atLine(line)
                                 .build()
                 );
