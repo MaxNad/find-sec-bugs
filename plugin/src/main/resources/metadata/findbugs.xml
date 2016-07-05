@@ -81,6 +81,8 @@
     <Detector class="com.h3xstream.findsecbugs.TrustBoundaryViolationDetector" reports="TRUST_BOUNDARY_VIOLATION"/>
     <Detector class="com.h3xstream.findsecbugs.scala.PlayUnvalidatedRedirectDetector" reports="PLAY_UNVALIDATED_REDIRECT" />
     <Detector class="com.h3xstream.findsecbugs.scala.SslDisablerDetector" reports="WEAK_TRUST_MANAGER,WEAK_HOSTNAME_VERIFIER"/>
+    <Detector class="com.h3xstream.findsecbugs.scala.XssMvcApiDetector" reports="SCALA_XSS_MVC_API" />
+    <Detector class="com.h3xstream.findsecbugs.scala.XssTwirlDetector" reports="SCALA_XSS_TWIRL" />
 
 
     <BugPattern type="PREDICTABLE_RANDOM" abbrev="SECPR" category="SECURITY" cweid="330"/>
@@ -149,6 +151,8 @@
     <BugPattern type="JSP_XSLT" abbrev="SECJSPXSLT" category="SECURITY" cweid="94"/>
     <BugPattern type="MALICIOUS_XSLT" abbrev="SECXSLT" category="SECURITY" cweid="94"/>
     <BugPattern type="XSS_SERVLET" abbrev="SECXSS2" category="SECURITY" cweid="79"/>
+    <BugPattern type="SCALA_XSS_TWIRL" abbrev="SECSCALAXSSTWIRL" category="SECURITY" cweid="79"/>
+    <BugPattern type="SCALA_XSS_MVC_API" abbrev="SECSCALAXSS" category="SECURITY" cweid="79"/>
     <BugPattern type="XML_DECODER" abbrev="XMLDEC" category="SECURITY"/>
     <BugPattern type="STATIC_IV" abbrev="STAIV" category="SECURITY" cweid="329"/>
     <BugPattern type="ECB_MODE" abbrev="SECECB" category="SECURITY" cweid="327"/>

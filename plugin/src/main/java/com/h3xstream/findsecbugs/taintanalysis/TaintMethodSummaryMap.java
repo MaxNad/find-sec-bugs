@@ -45,7 +45,7 @@ public class TaintMethodSummaryMap extends HashMap<String, TaintMethodSummary> {
     private static final Pattern fullMethodPattern;
     
     static {
-        String classWithPackageRegex = "([a-z][a-z0-9]*\\/)*[A-Z][a-zA-Z0-9\\$]*";
+        String classWithPackageRegex = "([a-z][a-z0-9]*\\/)*([A-Z][a-zA-Z0-9\\$]*|(package\\$))";
         String typeRegex = "(\\[)*((L" + classWithPackageRegex + ";)|B|C|D|F|I|J|S|Z)";
         String returnRegex = "(V|(" + typeRegex + "))";
         String methodRegex = "(([a-zA-Z][a-zA-Z0-9]*)|(<init>))";
