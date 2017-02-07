@@ -3993,7 +3993,7 @@ class FileWriteUtil {
     <BugCode abbrev="SECWVJI">WebView with a Java bridge (Javascript Interface) (Android)</BugCode>
 
     <!-- Cookie usage -->
-    <Detector class="com.h3xstream.findsecbugs.cookie.CookieFlagsDetector">
+    <Detector class="com.h3xstream.findsecbugs.cookie.CookieSetSecureFlagDetector">
         <Details>Identity cookie where the secure flag is not set</Details>
     </Detector>
 
@@ -4053,6 +4053,11 @@ cookie.setHttpOnly(true);
     </BugPattern>
     <BugCode abbrev="SECIC">Cookie without the secure flag</BugCode>
 
+
+    <!-- Cookie usage -->
+    <Detector class="com.h3xstream.findsecbugs.cookie.CookieHttpOnlyFlagDetector">
+        <Details>Identity cookie where the HttpOnly flag is not set</Details>
+    </Detector>
 
     <BugPattern type="HTTPONLY_COOKIE">
         <ShortDescription>Cookie without the HttpOnly flag</ShortDescription>

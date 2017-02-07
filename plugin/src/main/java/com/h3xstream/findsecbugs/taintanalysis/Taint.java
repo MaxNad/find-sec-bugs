@@ -102,7 +102,10 @@ public class Taint {
 
         PASSWORD_VARIABLE,
         CREDIT_CARD_VARIABLE,
-        HASH_VARIABLE;
+        HASH_VARIABLE,
+
+        HTTP_ONLY_COOKIE,
+        SECURE_COOKIE;
     }
     
     private State state;
@@ -116,6 +119,7 @@ public class Taint {
     private final Set<Tag> tags;
     private final Set<Tag> tagsToRemove;
     private String constantValue;
+    private Number integerConstantValue;
     private String debugInfo = null;
 
     /**
@@ -140,6 +144,7 @@ public class Taint {
         this.tags = EnumSet.noneOf(Tag.class);
         this.tagsToRemove = EnumSet.noneOf(Tag.class);
         this.constantValue = null;
+        this.integerConstantValue = null;
         if (FindSecBugsGlobalConfig.getInstance().isDebugTaintState()) {
             this.debugInfo = "?";
         }
@@ -164,6 +169,7 @@ public class Taint {
         this.tags = EnumSet.copyOf(taint.tags);
         this.tagsToRemove = EnumSet.copyOf(taint.tagsToRemove);
         this.constantValue = taint.constantValue;
+        this.integerConstantValue = taint.integerConstantValue;
         if (FindSecBugsGlobalConfig.getInstance().isDebugTaintState()) {
             this.debugInfo = taint.debugInfo;
         }
@@ -430,6 +436,19 @@ public class Taint {
     void setConstantValue(String value) {
         this.constantValue = value;
     }
+
+    /**
+     * Returns the constant value of the number or boolean if known
+     *
+     * @return constant value or null if unknown
+     */
+    public Number getIntegerConstantValue() {
+        return integerConstantValue;
+    }
+
+    void setIntegerConstantValue(Number value) {
+        this.integerConstantValue = value;
+    }
     
     /**
      * Constructs a new instance of taint from the specified state name
@@ -491,6 +510,9 @@ public class Taint {
         mergeTags(a, b, result);
         if (a.constantValue != null && a.constantValue.equals(b.constantValue)) {
             result.constantValue = a.constantValue;
+        }
+        if (a.integerConstantValue != null && a.integerConstantValue.equals(b.integerConstantValue)) {
+            result.integerConstantValue = a.integerConstantValue;
         }
         if (FindSecBugsGlobalConfig.getInstance().isDebugTaintState()) {
             result.setDebugInfo("[" + a.getDebugInfo() + "]+[" + b.getDebugInfo() + "]");
@@ -563,13 +585,14 @@ public class Taint {
                 && this.nonParametricState == other.nonParametricState
                 && Objects.equals(this.realInstanceClass, other.realInstanceClass)
                 && this.tags.equals(other.tags)
-                && Objects.equals(this.constantValue, other.constantValue);
+                && Objects.equals(this.constantValue, other.constantValue)
+                && Objects.equals(this.integerConstantValue, other.integerConstantValue);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(state, variableIndex, taintLocations, unknownLocations,
-                parameters, nonParametricState, realInstanceClass, tags, constantValue);
+                parameters, nonParametricState, realInstanceClass, tags, constantValue, integerConstantValue);
     }
 
     /**

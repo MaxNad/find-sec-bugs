@@ -18,7 +18,9 @@
 package com.h3xstream.findsecbugs.injection;
 
 import com.h3xstream.findsecbugs.taintanalysis.Taint;
+import com.h3xstream.findsecbugs.taintanalysis.TaintDataflowEngine;
 import com.h3xstream.findsecbugs.taintanalysis.TaintFrame;
+import com.h3xstream.findsecbugs.taintanalysis.TaintFrameAdditionalVisitor;
 import edu.umd.cs.findbugs.BugReporter;
 import edu.umd.cs.findbugs.Priorities;
 import edu.umd.cs.findbugs.SourceLineAnnotation;
@@ -47,7 +49,7 @@ public abstract class AbstractInjectionDetector extends AbstractTaintDetector {
     
     protected final Map<String, Set<InjectionSink>> injectionSinks = new HashMap<String, Set<InjectionSink>>();
     private final Map<MethodAndSink, Taint> sinkTaints = new HashMap<MethodAndSink, Taint>();
-    
+
     protected AbstractInjectionDetector(BugReporter bugReporter) {
         super(bugReporter);
     }
@@ -252,6 +254,10 @@ public abstract class AbstractInjectionDetector extends AbstractTaintDetector {
         }
         String dottedClassName = invoke.getReferenceType(cpg).toString();
         return ClassName.toSlashedClassName(dottedClassName);
+    }
+
+    protected void registerVisitor(TaintFrameAdditionalVisitor visitor) {
+        TaintDataflowEngine.registerAdditionalVisitor(visitor);
     }
 
     abstract protected InjectionPoint getInjectionPoint(

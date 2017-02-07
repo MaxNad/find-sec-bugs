@@ -72,23 +72,32 @@ public class HttpOnlyCookieSamples {
         Cookie safeHttpOnlyCookie = new Cookie("cookie 1", "foo");
         safeHttpOnlyCookie.setHttpOnly(true);
 
-        // The line bellow should stay line 74 - It is used with the .atLine() annotation in the test
+        // The line bellow should stay line 76 - It is used with the .atLine() annotation in the test
         Cookie unsafeHttpOnlyCookie = new Cookie("cookie 2", "bar");
         unsafeHttpOnlyCookie.setHttpOnly(false);
 
-        // The line bellow should stay line 78 - It is used with the .atLine() annotation in the test
+        // The line bellow should stay line 80 - It is used with the .atLine() annotation in the test
         Cookie unsafeCookie = new Cookie("cookie 3", "foo");
 
         Cookie mixedCookiesSafe = new Cookie("cookie 4", "bar");
-        // The line bellow should stay line 82 - It is used with the .atLine() annotation in the test
+        // The line bellow should stay line 84 - It is used with the .atLine() annotation in the test
         Cookie mixedCookies = new Cookie("cookie 5", "bar");
         mixedCookiesSafe.setHttpOnly(true);
 
-        // The line bellow should stay line 86 - It is used with the .atLine() annotation in the test
+        // The line bellow should stay line 88 - It is used with the .atLine() annotation in the test
         Cookie unsafeHttpOnlyCookie2 = new Cookie("c1", "foo");
         unsafeHttpOnlyCookie2.setHttpOnly(false);
 
         Cookie safeHttpOnlyCookie2 = new Cookie("c2", "bar");
         safeHttpOnlyCookie2.setHttpOnly(true);
+    }
+
+    void httpOnlySetInAnotherMethod() {
+        Cookie safeCookie = new Cookie("c1", "foo");
+        anotherMethod(safeCookie);
+    }
+
+    void anotherMethod(Cookie cookie) {
+        cookie.setHttpOnly(true);
     }
 }

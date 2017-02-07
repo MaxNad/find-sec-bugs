@@ -21,6 +21,7 @@ import com.h3xstream.findbugs.test.BaseDetectorTest;
 import com.h3xstream.findbugs.test.EasyBugReporter;
 import com.h3xstream.findsecbugs.FindSecBugsGlobalConfig;
 import java.util.List;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
@@ -31,6 +32,13 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 public class CookieFlagsDetectorTest extends BaseDetectorTest {
+
+    @BeforeClass
+    public void setDebugPrintValues() {
+        FindSecBugsGlobalConfig.getInstance().setDebugPrintInstructionVisited(true);
+        FindSecBugsGlobalConfig.getInstance().setDebugPrintInvocationVisited(true);
+        FindSecBugsGlobalConfig.getInstance().setDebugTaintState(true);
+    }
 
     @Test
     public void detectSecureFlagCookieBasic() throws Exception {
@@ -136,7 +144,8 @@ public class CookieFlagsDetectorTest extends BaseDetectorTest {
         EasyBugReporter reporter = spy(new SecurityReporter());
         analyze(files, reporter);
 
-        for (String method : Arrays.asList("safeCookie1", "safeCookie2")) {
+        for (String method : Arrays.asList("safeCookie1", "safeCookie2"/*, "httpOnlySetInAnotherMethod"*/)) {
+
             verify(reporter,never()).doReportBug(
                     bugDefinition()
                             .bugType("HTTPONLY_COOKIE")

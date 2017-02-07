@@ -228,11 +228,14 @@ public class TaintFrameModelingVisitor extends AbstractFrameModelingVisitor<Tain
 
     @Override
      public void visitICONST(ICONST obj) {
-        Taint t = new Taint(Taint.State.SAFE);
+        Taint taint = new Taint(Taint.State.SAFE);
+        taint.setIntegerConstantValue(obj.getValue().intValue());
+
         if (FindSecBugsGlobalConfig.getInstance().isDebugTaintState()) {
-            t.setDebugInfo("" + obj.getValue().intValue());
+            taint.setDebugInfo("" + obj.getValue().intValue());
         }
-        getFrame().pushValue(t);
+
+        getFrame().pushValue(taint);
     }
 
     @Override
@@ -418,6 +421,16 @@ public class TaintFrameModelingVisitor extends AbstractFrameModelingVisitor<Tain
      */
     private void visitInvoke(InvokeInstruction obj) {
         assert obj != null;
+
+        for(TaintFrameAdditionalVisitor visitor : visitors) {
+            try {
+                visitor.visitInvoke(obj, cpg, methodGen, getFrame());
+            }
+            catch (Throwable e) {
+                LOG.log(Level.SEVERE,"Error while executing "+visitor.getClass().getName(),e);
+            }
+        }
+
         try {
             TaintMethodConfig methodConfig = getMethodConfig(obj);
             ObjectType realInstanceClass = (methodConfig == null) ?
@@ -442,16 +455,6 @@ public class TaintFrameModelingVisitor extends AbstractFrameModelingVisitor<Tain
             String signature = obj.getSignature(cpg);
 
             throw new RuntimeException("Unable to call " + className + '.' + methodName + signature, e);
-        }
-
-
-        for(TaintFrameAdditionalVisitor visitor : visitors) {
-            try {
-                visitor.visitInvoke(obj, cpg, methodGen, getFrame());
-            }
-            catch (Throwable e) {
-                LOG.log(Level.SEVERE,"Error while executing "+visitor.getClass().getName(),e);
-            }
         }
     }
 

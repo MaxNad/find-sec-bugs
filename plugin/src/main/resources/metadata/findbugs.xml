@@ -19,7 +19,8 @@
     <Detector class="com.h3xstream.findsecbugs.endpoint.ServletEndpointDetector"
               reports="SERVLET_PARAMETER,SERVLET_CONTENT_TYPE,SERVLET_SERVER_NAME,SERVLET_SESSION_ID,SERVLET_QUERY_STRING,SERVLET_HEADER,SERVLET_HEADER_REFERER,SERVLET_HEADER_USER_AGENT"/>
     <Detector class="com.h3xstream.findsecbugs.cookie.CookieReadDetector" reports="COOKIE_USAGE"/>
-    <Detector class="com.h3xstream.findsecbugs.cookie.CookieFlagsDetector" reports="INSECURE_COOKIE,HTTPONLY_COOKIE"/>
+    <Detector class="com.h3xstream.findsecbugs.cookie.CookieHttpOnlyFlagDetector" reports="HTTPONLY_COOKIE"/>
+    <Detector class="com.h3xstream.findsecbugs.cookie.CookieSetSecureFlagDetector" reports="INSECURE_COOKIE"/>
     <Detector class="com.h3xstream.findsecbugs.file.PathTraversalDetector" reports="PATH_TRAVERSAL_IN,PATH_TRAVERSAL_OUT,SCALA_PATH_TRAVERSAL_IN"/>
     <Detector class="com.h3xstream.findsecbugs.injection.command.CommandInjectionDetector" reports="COMMAND_INJECTION,SCALA_COMMAND_INJECTION"/>
     <Detector class="com.h3xstream.findsecbugs.WeakFilenameUtilsMethodDetector" reports="WEAK_FILENAMEUTILS"/>

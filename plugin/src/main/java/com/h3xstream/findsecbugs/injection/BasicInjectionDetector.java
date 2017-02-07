@@ -196,9 +196,4 @@ public abstract class BasicInjectionDetector extends AbstractInjectionDetector {
         return ClassName.toSlashedClassName(invoke.getReferenceType(cpg).toString())
                 + "." + invoke.getMethodName(cpg) + invoke.getSignature(cpg);
     }
-
-
-    public void registerVisitor(TaintFrameAdditionalVisitor visitor) {
-        TaintDataflowEngine.registerAdditionalVisitor(visitor);
-    }
 }

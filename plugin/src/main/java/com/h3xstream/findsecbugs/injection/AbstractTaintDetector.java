@@ -108,7 +108,7 @@ public abstract class AbstractTaintDetector implements Detector {
         }
     }
     
-    private static Iterator<Location> getLocationIterator(ClassContext classContext, Method method)
+    protected static Iterator<Location> getLocationIterator(ClassContext classContext, Method method)
             throws CheckedAnalysisException {
         try {
             return classContext.getCFG(method).locationIterator();
@@ -116,14 +116,14 @@ public abstract class AbstractTaintDetector implements Detector {
             throw new CheckedAnalysisException("cannot get control flow graph", ex);
         }
     }
-    
-    private static TaintDataflow getTaintDataFlow(ClassContext classContext, Method method)
+
+    protected static TaintDataflow getTaintDataFlow(ClassContext classContext, Method method)
             throws CheckedAnalysisException {
         MethodDescriptor descriptor = BCELUtil.getMethodDescriptor(classContext.getJavaClass(), method);
         return Global.getAnalysisCache().getMethodAnalysis(TaintDataflow.class, descriptor);
     }
 
-    private static String getFullMethodName(MethodGen methodGen) {
+    protected static String getFullMethodName(MethodGen methodGen) {
         String methodNameWithSignature = methodGen.getName() + methodGen.getSignature();
         String slashedClassName = methodGen.getClassName().replace('.', '/');
         return slashedClassName + "." + methodNameWithSignature;

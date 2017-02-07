@@ -100,6 +100,8 @@ javax/servlet/http/Cookie.getName()Ljava/lang/String;:TAINTED
 javax/servlet/http/Cookie.getPath()Ljava/lang/String;:TAINTED
 javax/servlet/http/Cookie.getValue()Ljava/lang/String;:TAINTED
 
+javax/servlet/http/Cookie.setSecure(Z)V:1#1
+javax/servlet/http/Cookie.setHttpOnly(Z)V:1#1
 
 -javax/servlet/ServletConfig.getInitParameter(Ljava/lang/String;)Ljava/lang/String;:?
 -javax/servlet/ServletConfig.getInitParameterNames()Ljava/util/Enumeration;:?
